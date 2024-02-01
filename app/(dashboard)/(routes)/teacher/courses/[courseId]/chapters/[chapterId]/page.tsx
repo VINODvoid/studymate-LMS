@@ -8,11 +8,12 @@ import { ChapterTitleForm } from "./_components/chapter-title-form";
 import { ChapterDescriptionForm } from "./_components/chapter-description-form";
 import { ChapterAccessForm } from "./_components/chapter-access-form";
 import { ChapterVideoForm } from "./_components/chapter-video-form";
+import { Banner } from "@/components/banner";
 
 const ChapterIdPage = async(
 {
     params}:{
-        params:{courseId:string,chapterId:string}}
+        params:{courseId:string;chapterId:string}}
 ) => {
     const {userId} = auth();
     if (!userId) {
@@ -36,11 +37,18 @@ const ChapterIdPage = async(
         chapter.title,
         chapter.description,
         chapter.videoUrl,
-    ]
+    ];
     const totalFields = requiredFields.length;
     const completedFields = requiredFields.filter(Boolean).length;
     const completionText =(`${completedFields}/${totalFields}`);
     return (
+        <>
+        {!chapter.isPublished && (
+            <Banner 
+            variant="warning"
+            label="This chapter is not published.It will not be visible to students."
+            />
+        )}
         <div className="p-6 ">
             <div className="flex items-center justify-center ">
                 <div className="w-full">
@@ -69,8 +77,8 @@ const ChapterIdPage = async(
                             <h2 className="text-xl">Customize The Chapter</h2>
                         </div>
                         <ChapterTitleForm
-                        courseId={params.courseId}
                         initialData={chapter}
+                        courseId={params.courseId}
                         chapterId={params.chapterId}
                         />
                         <ChapterDescriptionForm
@@ -106,6 +114,7 @@ const ChapterIdPage = async(
                 </div>
             </div>
         </div>
+        </>
     )
 }
 
