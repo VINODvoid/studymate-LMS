@@ -1,6 +1,7 @@
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import Mux from "@mux/mux-node";
 
 export async function PATCH (
     req: Request,
