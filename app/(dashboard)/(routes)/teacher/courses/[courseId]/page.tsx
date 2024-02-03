@@ -80,7 +80,6 @@ const CourseIdPage = async ({
                     <span className="text-sm text-slate-700 ">
                         Complete All the Fields {completionText}
                     </span>
-
                 </div>
                 <Actions
                 disabled={!isComplete}

@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+    previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 datasource db {
@@ -28,6 +29,7 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   @@index([categoryId])
+  @@fulltext([title])
 }
 
 model Category{
@@ -96,7 +98,7 @@ model Purchase {
   course Course @relation( fields: [courseId],references: [id],onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()
-
+  @@unique([userId,courseId])
   @@index([courseId])
 }
 
